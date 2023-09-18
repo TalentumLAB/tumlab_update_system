@@ -2,10 +2,12 @@
 
 logger -p local0.debug -it tumlab_update_system "Start tumlab update process"
 
-path_find_patch="/tumlab/syncthing/patch/"
+path_find_patch="/syncthing/patch/"
 logger -p local0.debug -it tumlab_update_system "Variables values: path to find patch: $path_find_patch" 
 
-history_patches="/tumlab/apps/history_patches/"
+history_patches="/apps/history_patches/"
+
+log_path="/syncthing/log_execution_updater.log"
 logger -p local0.debug -it tumlab_update_system "Variables values: path to save patches hystory: $history_patches"
 
 checkExitsFile() {
@@ -48,7 +50,7 @@ else
         logger -p local0.debug -it tumlab_update_system "Unzipping patch folder"
 
         # patch_folder=$(find "$path_find_patch"* -type d)
-        file_name=$(echo "$line" | awk -F '/' '{print $5}'| awk -F '.' '{print $1}')
+        file_name=$(echo "$line" | awk -F '/' '{print $4}'| awk -F '.' '{print $1}')
         patch_folder="$path_find_patch/$file_name"
         echo "$patch_folder"
 
@@ -63,7 +65,7 @@ else
             logger -p local0.debug -it tumlab_update_system "Execute init file $patch_exec_file"
             chmod +x "$patch_exec_file"
             echo "$patch_exec_file"
-            $patch_exec_file >> /tumlab/syncthing/log_execution_updater.log
+            $patch_exec_file >> $log_path
             check_error="$?"
             logger -p local0.debug -it tumlab_update_system "Checking error to execute init file. Exit code:$check_error"
             echo "$check_error"
