@@ -2,12 +2,12 @@
 
 logger -p local0.debug -it tumlab_update_system "Start tumlab update process"
 
-path_find_patch="/syncthing/patch/"
+path_find_patch="/tumlab/syncthing/patch/"
 logger -p local0.debug -it tumlab_update_system "Variables values: path to find patch: $path_find_patch" 
 
-history_patches="/apps/history_patches/"
+history_patches="/tumlab/apps/history_patches/"
 
-log_path="/syncthing/log_execution_updater.log"
+log_path="/tumlab/syncthing/log_execution_updater.log"
 logger -p local0.debug -it tumlab_update_system "Variables values: path to save patches hystory: $history_patches"
 
 checkExitsFile() {
